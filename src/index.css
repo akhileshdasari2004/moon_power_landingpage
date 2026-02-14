@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Background: #0B0A12 */
+    --background: 248 29% 5%;
+    /* Foreman: #FFFFFF */
+    --foreground: 0 0% 100%;
+
+    /* Card/Surface: #12101A */
+    --card: 252 24% 8%;
+    --card-foreground: 0 0% 100%;
+
+    /* Popover: #12101A */
+    --popover: 252 24% 8%;
+    --popover-foreground: 0 0% 100%;
+
+    /* Primary: #7C3AED (primary-500) */
+    --primary: 263 84% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary: Transparent with border, using primary-400 for border usually */
+    /* We'll map secondary background to surface-elevated for now, or keep it dark */
+    --secondary: 256 25% 12%; 
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted/Elevated: #1A1625 */
+    --muted: 256 25% 12%;
+    --muted-foreground: 240 5% 65%; /* #A1A1AA */
+
+    /* Accent: #7C3AED base */
+    --accent: 263 84% 58%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border: rgba(255,255,255,0.06) -> approx #1A1625 for solid fallback or keep alpha if supported elsewhere */
+    /* Using #1A1625 (bg-elevated) as solid border color to match request "1px border rgba(255,255,255,0.06)" approx */
+    /* Actually tailwind config uses hsl(var(--border)), so we need HSL. 
+       255 255 255 at 6% opacity is hard in HSL variable without / alpha. 
+       Let's use a solid dark grey/purple approximating it on dark bg: 256 20% 15% */
+    --border: 256 20% 15%;
+    
+    /* Input: #1A1625 */
+    --input: 256 25% 12%;
+    
+    /* Ring: #7C3AED */
+    --ring: 263 84% 58%;
+
+    --radius: 0.75rem;
+
+    /* Sidebar / Extra tokens */
+    --sidebar-background: 248 29% 5%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 263 84% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 256 25% 12%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 256 20% 15%;
+    --sidebar-ring: 263 84% 58%;
+
+    /* Custom tokens from request */
+    --glow-primary: 263 84% 58%; /* primary-500 */
+    --glow-secondary: 258 90% 66%; /* primary-400 */
+    --surface-elevated: 256 25% 12%;
+  }
+
+  .dark {
+    --background: 248 29% 5%;
+    --foreground: 0 0% 100%;
+    --card: 252 24% 8%;
+    --card-foreground: 0 0% 100%;
+    --popover: 252 24% 8%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 263 84% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 256 25% 12%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 256 25% 12%;
+    --muted-foreground: 240 5% 65%;
+    --accent: 263 84% 58%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 256 20% 15%;
+    --input: 256 25% 12%;
+    --ring: 263 84% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--glow-primary)), hsl(var(--glow-secondary)));
+  }
+  .glow-box {
+    box-shadow: 0 0 60px -12px hsl(var(--glow-primary) / 0.4);
+  }
+  .glow-text {
+    text-shadow: 0 0 40px hsl(var(--glow-primary) / 0.5);
+  }
+  .glass {
+    @apply bg-card/50 backdrop-blur-xl border border-border/50;
+  }
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(var(--glow-primary) / 0.5), hsl(var(--glow-secondary) / 0.2));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
