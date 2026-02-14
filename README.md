@@ -4,7 +4,6 @@ A modern, high-performance SaaS landing page with a focus on dark mode aesthetic
 
 Built from scratch to explore the intersection of **React**, **Three.js**, and **Tailwind CSS**.
 
-![MoonPower Preview](src/assets/dashboard-dark.png)
 
 ## ✨ Highlights
 
